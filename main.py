@@ -2,7 +2,7 @@
 # @Author: Charlie Gallentine
 # @Date:   2020-06-19 09:34:03
 # @Last Modified by:   Charlie Gallentine
-# @Last Modified time: 2020-06-19 15:23:18
+# @Last Modified time: 2020-06-20 12:32:00
 
 from img_tools import *
 
@@ -29,15 +29,16 @@ def on_trackbar_mindist(val):
 
 def set_images(val):
 	global mindist_slider_val
+	global threshold_slider_val
 
-	dst = img_threshold(src,val)
+	dst = img_threshold(src,threshold_slider_val)
 	src_cpy = src.copy()
 
 	kernel = np.ones((11,11),np.uint8)
 	dst = cv2.morphologyEx(dst, cv2.MORPH_GRADIENT, kernel)
 
 	# for i,row in enumerate(dst):
-	for i in range(1,len(dst),3):
+	for i in range(1,len(dst),12):
 		left,right = contiguous_black_pixels(dst[i],minimum=mindist_slider_val)
 		src_cpy[i,left:right] = 0
 
