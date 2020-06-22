@@ -2,7 +2,7 @@
 # @Author: Charlie Gallentine
 # @Date:   2020-06-19 09:34:03
 # @Last Modified by:   Charlie Gallentine
-# @Last Modified time: 2020-06-21 17:56:42
+# @Last Modified time: 2020-06-21 18:06:13
 
 import cv2
 import numpy as np 
@@ -103,6 +103,7 @@ def set_images(val):
 
 	dst = img_threshold(src,threshold_slider_val)
 	src_cpy = src.copy()
+	src_original_copy = src_original.copy()
 
 	kernel = np.ones((11,11),np.uint8)
 	dst = cv2.morphologyEx(dst, cv2.MORPH_GRADIENT, kernel)
@@ -110,7 +111,7 @@ def set_images(val):
 	gap_data = cont_row(dst,minimum=mindist_slider_val)
 
 	for row in gap_data:
-		src_cpy[row[0],row[1][0]:row[1][1]] = 0
+		src_original_copy[row[0],row[1][0]:row[1][1],:] = 0
 	
 	row,gap = zip(*gap_data)
 	gap = np.array(gap)
@@ -119,13 +120,13 @@ def set_images(val):
 	total_area = np.sum(gap_widths)
 
 	dst_rgb = np.stack((dst,)*3, axis=-1)
-	src_rgb = np.stack((src_cpy,)*3, axis=-1)
+	# src_rgb = np.stack((src_cpy,)*3, axis=-1)
 
 	image_to_display = None
 	if which_display == 0:
 		image_to_display = dst_rgb
 	else:
-		image_to_display = src_rgb
+		image_to_display = src_original_copy
 
 	if display_stats:
 		image_to_display = overlay_info(image_to_display)
@@ -197,7 +198,7 @@ def cont_row(arr,minimum=50):
 # =============================================================================
 # =============================================================================
 src = np.array(cv2.imread('cell.jpg',0))
-
+src_original = np.array(cv2.imread('cell.jpg',1))
 
 # Set up display functions/keyboard interactivity
 cv2.namedWindow(title_window)
