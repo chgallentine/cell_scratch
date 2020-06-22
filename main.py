@@ -2,11 +2,11 @@
 # @Author: Charlie Gallentine
 # @Date:   2020-06-19 09:34:03
 # @Last Modified by:   Charlie Gallentine
-# @Last Modified time: 2020-06-21 18:09:22
+# @Last Modified time: 2020-06-21 18:26:07
 
 import cv2
 import numpy as np 
-import os
+import sys
 
 # =============================================================================
 # =============================================================================
@@ -24,7 +24,7 @@ threshold_slider_val = 0
 threshold_slider_max = 255
 mindist_slider_max = 800
 
-title_window = 'Threshold Value'
+title_window = None
 src = None
 src_original = None
 
@@ -198,8 +198,21 @@ def cont_row(arr,minimum=50):
 # BEGIN SCRIPT EXECUTION
 # =============================================================================
 # =============================================================================
-src = np.array(cv2.imread('cell.jpg',0))
-src_original = np.array(cv2.imread('cell.jpg',1))
+
+if (len(sys.argv)) != 2:
+	print("\nRun: python main.py <file input>")
+	sys.exit("Invalid Command Line Arguments\n")
+
+try:
+	fp = open(sys.argv[1], 'r')
+except:
+	print("\nMake sure file and path are valid")
+	sys.exit("Failed to open file: %s\n" % sys.argv[1])
+
+src = np.array(cv2.imread(sys.argv[1],0))
+src_original = np.array(cv2.imread(sys.argv[1],1))
+
+title_window = sys.argv[1]
 
 # Set up display functions/keyboard interactivity
 cv2.namedWindow(title_window)
@@ -220,11 +233,9 @@ while(1):
 	if k==27:    # Esc key to stop
 		break
 	elif k==ord('t'): # Toggle between src overlay/threshold image
-		print('Toggle Display')
 		which_display = (which_display + 1) % 2
 		set_images(threshold_slider_val)
 	elif k==ord('d'): # Toggle stats visibility
-		print('Toggle Display Stats')
 		display_stats = not display_stats
 		set_images(threshold_slider_val)
 

@@ -2,6 +2,12 @@
 
 ### Helper program for measuring width of cut in cell scratch experiments
 
+## Things to be aware of
+
+1. This program expects that the scratch will be vertically oriented. This will be the case until some other width finding algorithm is implemented (I.E. active contours)
+
+2. The program's measurements are based on user selection of parameters, thus this is a tool, but not an answer in of itself
+
 ## Change Image Thresholds
 
 ![Image Thresholds](/demo_images/thresholded_img.png)
