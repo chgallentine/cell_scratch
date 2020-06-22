@@ -2,7 +2,7 @@
 # @Author: Charlie Gallentine
 # @Date:   2020-06-19 09:34:03
 # @Last Modified by:   Charlie Gallentine
-# @Last Modified time: 2020-06-21 18:06:13
+# @Last Modified time: 2020-06-21 18:09:22
 
 import cv2
 import numpy as np 
@@ -26,6 +26,7 @@ mindist_slider_max = 800
 
 title_window = 'Threshold Value'
 src = None
+src_original = None
 
 # =============================================================================
 # =============================================================================

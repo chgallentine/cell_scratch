@@ -4,9 +4,13 @@
 
 ## Change Image Thresholds
 
+![Image Thresholds](/demo_images/thresholded_img.png)
+
 A gradient is created, performing some edge detection on the image loaded. This allows for the cut to be visualized. Changing this threshold using the slider changes the division between white and black pixels, adding or decreasing the clarity of image features
 
 ## Change Cut-Width Sensitivity
+
+![Scratch Width](/demo_images/scratch_width.png)
 
 Cut width is measured using the presense of black pixels bordered by white pixels on the image. This slider changes the minimum width of black pixels which is to be considerd. This allows measurement of the cut, ignoring features in the center of the scratch. At a width of zero, any black pixels will be measured as the scratch.
 
